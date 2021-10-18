@@ -1,22 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="col col-sm-6 col-md-6 col-offset">
-        <h3>Login Page</h3>
-        <form action="/lgoin">
-            <div class="form-group row">
-                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="text"  class="form-control-plaintext" id="staticEmail"
-                           placeholder="email@example.com">
-                </div>
+
+<section id="login" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col col-offset">
+                <h3>Login Page</h3>
+                <form action="/user/login" method="POST" class="form">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        {{form}}
+                    </div>
+                    <button type="submit" class="button  btn btn-info">Login</button>
+                </form>
             </div>
-            <div class="form-group row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword">
-                </div>
-            </div>
-            <button type="submit" class="button  btn btn-info">Login</button>
-        </form>
+        </div>
     </div>
+</section>
 {% endblock content %}
