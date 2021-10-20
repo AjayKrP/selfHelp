@@ -18,7 +18,9 @@
 <body>
 {% include 'components/header.html' %}
 
-{% if messages %}
+<div class="section-padding">
+  <div class="container">
+    {% if messages %}
     {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">
             {{ message }}
@@ -26,6 +28,9 @@
     {% endfor %}
 {% endif %}
 {% block content %}{% endblock content %}
+</div>
+
+</div>
 
 {% include 'components/footer.html' %}
 

@@ -21,7 +21,7 @@ def register(request):
             messages.success(request, f'account created for {username}')
         else:
             messages.error(request, form.errors)
-        return redirect('register')
+        return redirect('login.home')
     else:
         form = RegistrationForm()
     return render(request, 'users/register.html', {'form': form, 'title': 'Hello'})
@@ -31,9 +31,11 @@ def signup(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
+            form.save()
             username = form.cleaned_data.get('username')
             email = form.cleaned_data.get('email')
             ######################### mail system ####################################
+            """
             htmly = get_template('users/email.html')
             d = {'username': username}
             subject, from_email, to = 'welcome', 'your_email@gmail.com', email
@@ -41,8 +43,9 @@ def signup(request):
             msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
+            """
             ##################################################################
-            messages.success(request, f'Your account has been created ! You are now able to log in')
+            messages.success(request, f'Your account with ${username} has been created ! You are now able to log in')
             return redirect('login')
     else:
         form = RegistrationForm()
@@ -55,7 +58,9 @@ def Login(request):
         # AuthenticationForm_can_also_be_used__
         username = request.POST['username']
         password = request.POST['password']
+        print(username, password)
         user = authenticate(request, username=username, password=password)
+        print(user)
         if user is not None:
             print('user not found')
             form = login(request, user)
@@ -63,12 +68,12 @@ def Login(request):
             return redirect('home')
         else:
             print('user found')
-            messages.info(request, f'account done not exit plz sign in')
+            messages.info(request, f'account does not exit plz sign up')
     form = AuthenticationForm()
     return render(request, 'users/login.html', {'form': form, 'title': 'log in'})
 
 
 def home(request):
     users = User.objects.all()
-    print(users)
+    print(User.objects.all().values())
     return render(request, 'users/users.html', {'users': users})
