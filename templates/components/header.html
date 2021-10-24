@@ -15,7 +15,11 @@
                 <li><a href="#organisations">Organisations</a></li>
                 <li><a href="#courses">Courses</a></li>
                 <li><a href="#pricing">Pricing</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="#" >Welcome {{ user }}</a></li>
+                {% else %}
                 <li><a href="#" data-target="#login" data-toggle="modal">Sign in</a></li>
+                {% endif %}
                 <li class="btn-trial"><a href="#footer">Free Trail</a></li>
             </ul>
         </div>

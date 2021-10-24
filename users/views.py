@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from users.ui.forms.UserCreationForm import RegistrationForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
@@ -17,6 +17,7 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
+            form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'account created for {username}')
         else:
@@ -45,7 +46,7 @@ def signup(request):
             msg.send()
             """
             ##################################################################
-            messages.success(request, f'Your account with ${username} has been created ! You are now able to log in')
+            messages.success(request, f'Your account with {username} has been created ! Please login to proceed.')
             return redirect('login')
     else:
         form = RegistrationForm()
@@ -62,7 +63,6 @@ def Login(request):
         user = authenticate(request, username=username, password=password)
         print(user)
         if user is not None:
-            print('user not found')
             form = login(request, user)
             messages.success(request, f' welcome {username} !!')
             return redirect('home')
@@ -71,6 +71,12 @@ def Login(request):
             messages.info(request, f'account does not exit plz sign up')
     form = AuthenticationForm()
     return render(request, 'users/login.html', {'form': form, 'title': 'log in'})
+
+
+def logout_user(request):
+    messages.success(request, 'You have been successfully logout!')
+    logout(request)
+    return redirect('home')
 
 
 def home(request):

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
     'selfHelp'
 ]
 
@@ -69,8 +70,31 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'selfHelp.wsgi.application'
+#WSGI_APPLICATION = 'selfHelp.wsgi.application'
 
+ASGI_APPLICATION = "selfHelp.asgi.application"
+
+CHANNEL_LAYERS = {
+    'default': {
+        ### Method 1: Via redis lab
+        # 'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        # 'CONFIG': {
+        #     "hosts": [
+        #       'redis://h:<password>;@<redis Endpoint>:<port>'
+        #     ],
+        # },
+
+        ### Method 2: Via local Redis
+        # 'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        # 'CONFIG': {
+        #      "hosts": [('127.0.0.1', 6379)],
+        # },
+
+        ### Method 3: Via In-memory channel layer
+        ## Using this method.
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
