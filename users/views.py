@@ -80,6 +80,9 @@ def logout_user(request):
 
 
 def home(request):
-    users = User.objects.all()
-    print(User.objects.all().values())
-    return render(request, 'users/users.html', {'users': users})
+    if request.user.is_authenticated:
+        users = User.objects.all()
+        print(users.values())
+        return render(request, 'users/users.html', {'users': users})
+    messages.error(request, 'Please login to proceed.')
+    return redirect('login')
