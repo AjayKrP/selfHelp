@@ -1,203 +1,228 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="dbContainer">
-    <div class="header">
-        <div>&nbsp;</div>
-        <p>{{ title }}</p>
-    </div>
-    <div class="dbContainerData">
-    {% include 'dashboard/components/sidebar.html' %}
-    </div>
+        <div class="header">
+            <div>&nbsp;</div>
+            <p>{{ title }}</p>
+        </div>
+        <div class="dbContainerData">
+            {% include 'dashboard/components/sidebar.html' %}
+            <div class="rightContainer">
+                <div style="clear:both"></div>
+                <div class="dbViewDisplayArea">
+                    <h2>{{ dashboard.current_section }}</h2>
+                    {% comment %}<p style="float: right;font-size: 14px;padding: 0px 20px;">
+                    *all data on this page for repsresntation only</p>
+                    {% endcomment %}
+                    <div style="padding: 10px 20px 30px;">
+                        {% block dashboardContent %}{% endblock dashboardContent %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <style>
-    *,
-    *::before,
-    *::after {
-        box-sizing: border-box;
-    }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
 
-    body {
-        background-color: #f3f3f3;
-    }
+        body {
+            background-color: #f3f3f3;
+        }
 
-    .dbContainer {
-        margin: 20px auto;
-        margin-bottom: 40px;
-    }
+        .dbContainer {
+            margin: 20px auto;
+            margin-bottom: 40px;
+        }
 
-    .header {
-        position: relative;
-    }
+        .header {
+            position: relative;
+        }
 
-    .header div {
-        width: 100%;
-        background: #03787c;
-        height: 143px;
-    }
+        .header div {
+            width: 100%;
+            background: #03787c;
+            height: 143px;
+        }
 
-    .header p {
-        position: absolute;
-        top: 10px;
-        left: 326px;
-        color: #fff;
-        font-size: 44px;
-        letter-spacing: 1px;
-        font-weight: 700;
-    }
+        .header p {
+            position: absolute;
+            top: 10px;
+            left: 326px;
+            color: #fff;
+            font-size: 44px;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
 
-    .dbContainerData {
-        float: left;
-    }
+        .dbContainerData {
+            float: left;
+        }
 
-    .leftContainer {
-        width: 19%;
-        float: left;
-        background-color: #fff;
-        padding: 10px 10px 20px 10px;
-        margin-top: 10px;
-        margin-right: 1%;
-        border-radius: 10px;
-        margin-bottom: 90px;
-        box-shadow: -5px 7px 18px 3px rgba(134, 227, 213, 0.65);
-    }
+        .leftContainer {
+            width: 19%;
+            float: left;
+            background-color: #fff;
+            padding: 10px 10px 20px 10px;
+            margin-top: 10px;
+            margin-right: 1%;
+            border-radius: 10px;
+            margin-bottom: 90px;
+            box-shadow: -5px 7px 18px 3px rgba(134, 227, 213, 0.65);
+        }
 
-    .userProfile img {
-        width: 150px;
-        display: block;
-        margin: auto;
-        margin-top: 20px;
-        border-radius: 50%;
-    }
+        .userProfile img {
+            width: 150px;
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+            border-radius: 50%;
+        }
 
-    .rightContainer {
-        width: 80%;
-        float: left;
-        margin-top: 10px;
-    }
+        .rightContainer {
+            width: 80%;
+            float: left;
+            margin-top: 10px;
+        }
 
-    .dbControls {
-        padding: 30px 30px;
-        width: 100%;
-        float: left;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: -5px 7px 18px 3px rgba(134, 227, 213, 0.65);
-    }
+        .dbControls {
+            padding: 30px 30px;
+            width: 100%;
+            float: left;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: -5px 7px 18px 3px rgba(134, 227, 213, 0.65);
+        }
 
-    .userProfile p {
-        text-align: center;
-        font-size: 20px;
-        padding: 5px;
-        font-weight: 700;
-        color: #0090da;
-        letter-spacing: 2px;
-        margin-top: 5px;
-    }
+        .userProfile p {
+            text-align: center;
+            font-size: 20px;
+            padding: 5px;
+            font-weight: 700;
+            color: #0090da;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
 
-    .dbViewList {
-        height: auto;
-        float: left;
-    }
+        .dbViewList {
+            height: auto;
+            float: left;
+        }
 
-    .dbViewList p {
-        border-top: 1px solid #f2f2f2;
-        margin-right: 10px;
-        margin-left: 10px;
-        padding: 7px 5px 10px 9px;
-        font-size: 16px;
-        float: left;
-        width: 90%;
-        margin-bottom: 0px;
-        margin-top: 0px;
-    }
+        .dbViewList a {
+            border-top: 1px solid #f2f2f2;
+            margin-right: 10px;
+            margin-left: 10px;
+            padding: 7px 5px 10px 9px;
+            font-size: 16px;
+            float: left;
+            width: 90%;
+            margin-bottom: 0px;
+            margin-top: 0px;
+        }
 
-    .dbViewList p span {
-        padding: 0px 10px 0px 0px;
-        font-weight: 700;
-        color: #c1c1c1;
-        font-size: 20px;
-        float: left;
-    }
+        .dbViewList p span {
+            padding: 0px 10px 0px 0px;
+            font-weight: 700;
+            color: #c1c1c1;
+            font-size: 20px;
+            float: left;
+        }
 
-    .dbViewList p:hover {
-        background-image: linear-gradient(to right, #03787c, #1e4b74);
-        color: #fff;
-        cursor: pointer;
-    }
+        .dbViewList a:hover {
+            background-image: linear-gradient(to right, #03787c, #1e4b74);
+            color: #fff;
+            text-decoration: none !important;
+            cursor: pointer;
+        }
 
-    .dbViewDisplayArea {
-        background: white;
-        height: auto;
-        width: 100%;
-        margin-top: 10px;
-        border-radius: 10px;
-        float: left;
-        box-shadow: -5px 7px 18px 3px rgba(134, 227, 213, 0.65);
-    }
+        .slot-items {
+            width: 200px;
+            text-align: center;
+            align-content: center;
+            padding: 20px;
+            background-color: white;
+            color: #4B4B4C;
+            font-size: medium;
+            border-radius: 10px;
+            box-shadow: -5px 7px 18px 3px rgba(134, 227, 213, 0.65);
+        }
 
-    h2 {
-        color: #ffffff !important;
-        padding: 10px;
-        font-size: 24px;
-        text-align: center;
-        background: #03787c;
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
-        margin-top: 0px !important;
-    }
+        .dbViewDisplayArea {
+            background: white;
+            height: auto;
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 10px;
+            float: left;
+            box-shadow: -5px 7px 18px 3px rgba(134, 227, 213, 0.65);
+        }
 
-    .dbDrpdown {
-        float: left;
-        width: 190px;
-        border: none;
-        border-bottom: 3px solid #03787c;
-        padding: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-right: 30px;
-    }
+        h2 {
+            color: #ffffff !important;
+            padding: 10px;
+            font-size: 24px;
+            text-align: center;
+            background: #03787c;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            margin-top: 0px !important;
+        }
 
-    input[type=button] {
-        margin-top: -3px;
-        margin-left: 0px;
-        box-sizing: content-box;
-        font-family: 'Noto Sans', sans-serif;
-        font-size: 14px;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-weight: bold;
-        border-radius: 2px;
-        padding: 7px 30px 6px;
-        display: inline-block;
-        color: #03787c !important;
-        border: 3px solid #03787c;
-        background-color: #fff !important;
-    }
+        .dbDrpdown {
+            float: left;
+            width: 190px;
+            border: none;
+            border-bottom: 3px solid #03787c;
+            padding: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 30px;
+        }
 
-    input[type=button]:hover {
-        text-decoration: none;
-        background: #03787c !important;
-        color: #fff !important;
-        border: 3px solid #03787c;
-        cursor: pointer;
-    }
+        input[type=button] {
+            margin-top: -3px;
+            margin-left: 0px;
+            box-sizing: content-box;
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 2px;
+            padding: 7px 30px 6px;
+            display: inline-block;
+            color: #03787c !important;
+            border: 3px solid #03787c;
+            background-color: #fff !important;
+        }
 
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
+        input[type=button]:hover {
+            text-decoration: none;
+            background: #03787c !important;
+            color: #fff !important;
+            border: 3px solid #03787c;
+            cursor: pointer;
+        }
 
-    td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-    }
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-    tr:nth-child(even) {
-        background-color: #dddddd;
-    }
-</style>
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
 
-{% endblock  %}
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
+{% endblock %}

@@ -88,39 +88,3 @@ def home(request):
         return render(request, 'users/users.html', {'users': users})
     messages.error(request, 'Please login to proceed.')
     return redirect('login')
-
-
-def dashboard(request):
-    studentConfig = {
-        'title': 'Student Dashboard',
-        'dashboard': {
-            'title': 'Team Utilization Dashboard',
-            'sidebar': [
-                {'title': 'Book a Slot', 'url': '#'},
-                {'title': 'Revisit Session', 'url': '#'},
-                {'title': 'Complete Curriculum', 'url': '#'},
-                {'title': 'Select a Mentor', 'url': '#'},
-                {'title': 'Shop', 'url': '#'}
-            ]
-        }
-    }
-
-    mentorConfig = {
-        'title': 'Mentor Dashboard',
-        'dashboard': {
-            'title': 'Team Utilization Dashboard',
-            'sidebar': [
-                {'title': 'Add Slot', 'url': '#'},
-                {'title': 'My Students', 'url': '#'},
-                {'title': 'Complete Curriculum', 'url': '#'},
-            ]
-        }
-    }
-    # TODO add condition to check either current user is Mentor/Student
-    # and based on that send config to frontend.
-    # For now fetching mentor flag from Url query params
-    if request.GET.get('mentor', ''):
-        config = mentorConfig
-    else:
-        config = studentConfig
-    return render(request, 'dashboard/dashboard.html', config)
