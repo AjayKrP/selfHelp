@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'selfHelp'
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -69,6 +70,9 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_PROFILE_MODULE = 'users.UserProfile'
+
 
 #WSGI_APPLICATION = 'selfHelp.wsgi.application'
 
@@ -139,6 +143,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+SESSION_COOKIE_AGE = 60 * 60 * 2
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

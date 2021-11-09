@@ -1,0 +1,14 @@
+<div class="leftContainer">
+    {% include 'dashboard/components/profile.html' %}
+    <div class="dbViewList">
+        {% for item in dashboard.sidebar %}
+                <p title="{{ item.sidebar }}">{{ item.title }}</p>
+        {% endfor %}
+    </div>
+</div>
+<div class="rightContainer">
+    <div style="clear:both"></div>
+    {% include 'dashboard/components/main.html' %}
+</div>
+
+

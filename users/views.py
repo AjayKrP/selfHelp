@@ -55,22 +55,25 @@ def signup(request):
 
 ################ login forms###################################################
 def Login(request):
-    if request.method == 'POST':
-        # AuthenticationForm_can_also_be_used__
-        username = request.POST['username']
-        password = request.POST['password']
-        print(username, password)
-        user = authenticate(request, username=username, password=password)
-        print(user)
-        if user is not None:
-            form = login(request, user)
-            messages.success(request, f' welcome {username} !!')
-            return redirect('home')
-        else:
-            print('user found')
-            messages.info(request, f'account does not exit plz sign up')
-    form = AuthenticationForm()
-    return render(request, 'users/login.html', {'form': form, 'title': 'log in'})
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            # AuthenticationForm_can_also_be_used__
+            username = request.POST['username']
+            password = request.POST['password']
+            print(username, password)
+            user = authenticate(request, username=username, password=password)
+            print(user)
+            if user is not None:
+                form = login(request, user)
+                messages.success(request, f' welcome {username} !!')
+                return redirect('home')
+            else:
+                print('user found')
+                messages.info(request, f'account does not exit plz sign up')
+        form = AuthenticationForm()
+        return render(request, 'users/login.html', {'form': form, 'title': 'log in'})
+    else:
+        return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 
 def logout_user(request):
@@ -82,7 +85,38 @@ def logout_user(request):
 def home(request):
     if request.user.is_authenticated:
         users = User.objects.all()
-        print(users.values())
         return render(request, 'users/users.html', {'users': users})
     messages.error(request, 'Please login to proceed.')
     return redirect('login')
+
+
+def dashboard(request):
+    studentConfig = {
+        'title': 'Student Dashboard',
+        'dashboard': {
+            'title': 'Team Utilization Dashboard',
+            'sidebar': [
+                {'title': 'Book a Slot', 'url': '#'},
+                {'title': 'Revisit Session', 'url': '#'},
+                {'title': 'Complete Curriculum', 'url': '#'},
+                {'title': 'Select a Mentor', 'url': '#'},
+                {'title': 'Shop', 'url': '#'}
+            ]
+        }
+    }
+
+    mentorConfig = {
+        'title': 'Mentor Dashboard',
+        'dashboard': {
+            'title': 'Team Utilization Dashboard',
+            'sidebar': [
+                {'title': 'Add Slot', 'url': '#'},
+                {'title': 'My Students', 'url': '#'},
+                {'title': 'Complete Curriculum', 'url': '#'},
+            ]
+        }
+    }
+    # TODO add condition to check either current user is Mentor/Student
+    # and based on that send config to frontend.
+
+    return render(request, 'dashboard/dashboard.html', studentConfig )
