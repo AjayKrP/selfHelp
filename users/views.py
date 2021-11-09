@@ -118,5 +118,9 @@ def dashboard(request):
     }
     # TODO add condition to check either current user is Mentor/Student
     # and based on that send config to frontend.
-
-    return render(request, 'dashboard/dashboard.html', studentConfig )
+    # For now fetching mentor flag from Url query params
+    if request.GET.get('mentor', ''):
+        config = mentorConfig
+    else:
+        config = studentConfig
+    return render(request, 'dashboard/dashboard.html', config)
