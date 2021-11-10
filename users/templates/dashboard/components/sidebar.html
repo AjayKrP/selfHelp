@@ -2,7 +2,7 @@
     {% include 'dashboard/components/profile.html' %}
     <div class="dbViewList">
         {% for item in dashboard.sidebar %}
-            <a href="/user/dashboard/{{ item.url }}" title="{{ item.sidebar }}">{{ item.title }}</a>
+            <a href="/user/dashboard/?c={{ item.url }}" title="{{ item.sidebar }}">{{ item.title }}</a>
         {% endfor %}
     </div>
 </div>

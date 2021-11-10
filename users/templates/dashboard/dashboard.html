@@ -3,10 +3,20 @@
     <div class="dbContainer">
         <div class="header">
             <div>&nbsp;</div>
-            <p>{{ title }}</p>
+            <p>Student Dashboard</p>
         </div>
         <div class="dbContainerData">
-            {% include 'dashboard/components/sidebar.html' %}
+            <div class="leftContainer">
+                {% include 'dashboard/components/profile.html' %}
+                <div class="dbViewList">
+                    <a href="/user/dashboard/book-slot" class="active">Book a Slot</a>
+                    <a href="/user/dashboard/revisit-session">Revisit Session</a>
+                    <a href="/user/dashboard/complete-curriculum">Complete Curriculum</a>
+                    <a href="/user/dashboard/select-mentor">Select a Mentor</a>
+                    <a href="/user/dashboard/shop">Shop</a>
+                </div>
+            </div>
+
             <div class="rightContainer">
                 <div style="clear:both"></div>
                 <div class="dbViewDisplayArea">
@@ -139,6 +149,12 @@
             cursor: pointer;
         }
 
+        .active{
+            background-image: linear-gradient(to right, #03787c, #1e4b74);
+            color: #fff;
+            text-decoration: none !important;
+        }
+        
         .slot-items {
             width: 200px;
             text-align: center;
@@ -148,6 +164,7 @@
             color: #4B4B4C;
             font-size: medium;
             border-radius: 10px;
+            margin: 5px;
             box-shadow: -5px 7px 18px 3px rgba(134, 227, 213, 0.65);
         }
 

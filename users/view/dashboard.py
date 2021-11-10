@@ -4,9 +4,12 @@ from django.shortcuts import render, redirect
 separating dashboard views 
 """
 
+
 def dashboard(request):
+    current_component = request.GET.get('c', '')
     studentConfig = {
         'title': 'Student Dashboard',
+        'current_component': current_component,
         'dashboard': {
             'title': 'Team Utilization Dashboard',
             'sidebar': [
@@ -21,6 +24,7 @@ def dashboard(request):
 
     mentorConfig = {
         'title': 'Mentor Dashboard',
+        'current_component': current_component,
         'dashboard': {
             'title': 'Team Utilization Dashboard',
             'sidebar': [
@@ -41,4 +45,12 @@ def dashboard(request):
 
 
 def book_slot(request):
-    return render(request, 'dashboard/components/book-slot.html')
+    config = {
+        'dashboard':{
+        'current_section':'Book a Slot',
+        },
+        'slots': [
+            1, 2, 3, 4, 5, 6
+        ]
+    }
+    return render(request, 'dashboard/components/book-slot.html', config)

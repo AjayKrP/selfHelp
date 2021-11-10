@@ -2,11 +2,13 @@
 {% block dashboardContent %}
     <div class="slots">
         <div class="row">
+            {% for i in slots %}
             <div class="col-sm-2 slot-items">
                 <a class="item" href="#">
                     9:00 AM - 12:00 PM
                 </a>
             </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock dashboardContent %}
